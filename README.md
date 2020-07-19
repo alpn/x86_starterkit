@@ -1,2 +1,2 @@
-x86 Start Kit
-===
+x86 Starter Kit
+====
