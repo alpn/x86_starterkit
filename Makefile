@@ -13,7 +13,7 @@ PLAT_DIR=plat
 PORT_UTIL_DIR=utils
 
 X86_OBJECTS =  c_traps.o gdt.o main.o
-PLAT_OBJECTS = irq_handlers.o pic.o pit.o terminal.o 
+PLAT_OBJECTS = irq_handlers.o pic.o pit.o terminal.o keyboard.o
 ASM_OBJECTS =   boot.o traps.o
 UTIL_OBJECTS = string.o printf.o
 
