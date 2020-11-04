@@ -6,7 +6,7 @@ set -e
 BIN_DIR=build/run/iso/boot
 GRUB_DIR=$BIN_DIR/grub
 GRUB_CFG=$GRUB_DIR/grub.cfg
-ISO=all_tests_multiboot.iso
+ISO=bootable.iso
 
 make clean
 
@@ -22,6 +22,5 @@ done
 
 if [ $(ls $BIN_DIR/*.bin | wc -l) -gt 0   ];then 
 	grub-mkrescue -o  $ISO build/run/iso
-	qemu-system-i386 -cdrom $ISO  -monitor stdio
 fi
 
