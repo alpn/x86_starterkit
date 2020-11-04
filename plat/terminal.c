@@ -17,6 +17,8 @@ static uint16_t* terminal_buffer;
 static size_t terminal_tick_index = 0;
 static size_t terminal_keypress_index = 0;
 
+extern char keyboard_us[];
+
 static uint8_t make_color(enum vga_color fg, enum vga_color bg) {
 	return fg | bg << 4;
 }
@@ -91,6 +93,7 @@ void terminal_tick(char c) {
 	terminal_buffer[terminal_tick_index] = vga_entry(c,terminal_color);
 }
 
-void terminal_keypress(char c) {
+void terminal_keypress(uint8_t scan_code) {
+	char c = keyboard_us[scan_code];
 	terminal_buffer[terminal_keypress_index] = vga_entry(c,terminal_color);
 }

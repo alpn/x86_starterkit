@@ -3,8 +3,6 @@
 
 static void *irq_routines[16] = {0};
 
-extern char keyboard_us[];
-
 void irq_register_handler(int irq, void (*handler)(x86_iframe_t*)){
 
     if((NULL == handler) || (irq<0) || (irq>15)) return;
@@ -57,6 +55,6 @@ void sys_key_handler(x86_iframe_t* frame){
     }
 
     if (0x81 > scan_code){
-        terminal_keypress(keyboard_us[scan_code]);
+        terminal_keypress(scan_code);
     }
 }

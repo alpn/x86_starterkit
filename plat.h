@@ -30,6 +30,6 @@ extern void terminal_putchar_color(char c, uint8_t text_color, uint8_t backgroun
 extern void terminal_tick_init(uint8_t n);
 extern void terminal_keypress_init(uint8_t n);
 extern void terminal_tick(char c);
-extern void terminal_keypress(char c);
+extern void terminal_keypress(uint8_t scan_code);
 
 #endif
