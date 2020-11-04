@@ -14,6 +14,9 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
 
+static size_t terminal_tick_index = 0;
+static size_t terminal_keypress_index = 0;
+
 static uint8_t make_color(enum vga_color fg, enum vga_color bg) {
 	return fg | bg << 4;
 }
@@ -39,9 +42,9 @@ void terminal_init() {
 
 static void scroll(void)
 {
-	memcpyw( terminal_buffer, terminal_buffer + VGA_WIDTH, (VGA_HEIGHT-1) * VGA_WIDTH *2);
+	memcpyw(terminal_buffer, terminal_buffer + VGA_WIDTH, (VGA_HEIGHT - 1) * VGA_WIDTH * 2);
 	uint16_t c = vga_entry(' ', terminal_color);
-        memsetw(terminal_buffer + (VGA_HEIGHT-1)*VGA_WIDTH , c , VGA_WIDTH); 	
+	memsetw(terminal_buffer + (VGA_HEIGHT - 1) * VGA_WIDTH, c, VGA_WIDTH);
 	--terminal_row;
 }
 
@@ -75,3 +78,19 @@ void terminal_putchar_color(char c, uint8_t text_color, uint8_t background_color
 void terminal_putchar(char c){
 	terminal_putchar_color(c,COLOR_DEFAULT, COLOR_DEFAULT);
 }	
+
+void terminal_tick_init(uint8_t n){
+	terminal_tick_index = VGA_WIDTH * terminal_row + n;
+}
+
+void terminal_keypress_init(uint8_t n){
+	terminal_keypress_index = VGA_WIDTH * terminal_row + n;
+}
+
+void terminal_tick(char c) {
+	terminal_buffer[terminal_tick_index] = vga_entry(c,terminal_color);
+}
+
+void terminal_keypress(char c) {
+	terminal_buffer[terminal_keypress_index] = vga_entry(c,terminal_color);
+}

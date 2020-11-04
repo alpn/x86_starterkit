@@ -27,12 +27,15 @@ int x86_pc_init(void)
     print("i8259 (PIC) initialized\n");
 
     irq_register_handler(0, sys_tick_handler);
+    print("IRQ handler set: sys_tick_handler\n");
+
     irq_register_handler(1, sys_key_handler);
+    print("IRQ handler set: sys_key_handler\n");
+
+    print("\n");
 
     return X86_OK;
 }
-
-static void app_entry(uint32_t data);
 
 void kernel_main (void)
 {
@@ -42,19 +45,23 @@ void kernel_main (void)
 
     if(X86_OK != x86_pc_init()) goto failure;
 
+    char timer_str[] = "System timer is ticking\n";
+    terminal_tick_init(sizeof(timer_str));
+    print(timer_str);
+
+    char key_str[] = "Last keypress:\n";
+    terminal_keypress_init(sizeof(key_str));
+    print(key_str);
+
     x86_enable_int();
-    app_entry(9);
+
+    print_color("\n Hey x86!", COLOR_WHITE, COLOR_GREEN);
+    print("\n\nPress ESC to reboot\n");
+
+    while(1);
 
 failure:  
 
     print("[FAILURE]\n");
     x86_halt();
-}
-
-static void app_entry (uint32_t data)
-{
-    print_color("\n Hey x86!", COLOR_WHITE, COLOR_GREEN);
-
-    print("\n\nPress Q to reboot\n");
-    while(1);
 }
