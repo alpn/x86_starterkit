@@ -56,10 +56,13 @@ void  x86_exception_handler(x86_iframe_t* iframe){
 
     uint32_t vector = iframe->vector;
 
-    if(31 >= vector)
-	handle_exception(vector);
-    else if(47 >= vector)
-	handle_platform_irq(iframe);
-    else 
-	handle_unknown();
+    if(31 >= vector){
+        handle_exception(vector);
+    }
+    else if(47 >= vector){
+        handle_platform_irq(iframe);
+    }
+    else{
+        handle_unknown();
+    }
 }
