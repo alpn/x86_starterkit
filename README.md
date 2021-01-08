@@ -6,7 +6,7 @@ What
 This repo is meant to serve as an easy starting point for newcomer OS/Kernel development enthusiasts.
 It includes everything you need to kick off a freestanding bootable `C` main, including support for basic stuff like printing to the terminnal and getting user input.
 
-![](https://github.com/alpn/x86_starterkit/raw/master/.media/files.gif)
+![](https://github.com/alpn/x86_starterkit/raw/master/.media/qemu_boot.gif)
 
 Prerequisites
 ---
